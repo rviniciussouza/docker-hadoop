@@ -19,6 +19,8 @@ RUN tar zvxf hadoop-${HADOOP_VERSION}.tar.gz -C /usr/ \
     && rm -rf ${HADOOP_HOME}/share/doc \
     && chown -R root:root ${HADOOP_HOME}
 
+RUN echo "export JAVA_HOME=${JAVA_HOME}" >> /etc/environment
+
 # Diretórios LOG
 RUN mkdir ${HADOOP_HOME}/logs
 
