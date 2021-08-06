@@ -1,0 +1,47 @@
+version: "3.9"
+services:
+  master-node:
+    image: rvinicius/master-node-hadoop:3.3.1
+    container_name: master-node
+    hostname: master-node
+    tty: true
+    volumes:
+      - ./user_data:/user_data
+    ports:
+      - "8088:8088" # ResourceManager
+      - "9870:9870" # NameNode WebUI
+      - "8042:8042" # NodeManager
+    networks: 
+      hadoop-network:
+        ipv4_address: 10.5.0.2
+  worker-node-1:
+    image: rvinicius/worker-node-hadoop:3.3.1
+    container_name: worker-node-1
+    hostname: worker-node-1
+    tty: true
+    depends_on:
+      - master-node
+    ports:
+      - "6042:8042" # NodeManager
+    networks: 
+      hadoop-network:
+        ipv4_address: 10.5.0.3
+  worker-node-2:
+    image: rvinicius/worker-node-hadoop:3.3.1
+    container_name: worker-node-2
+    hostname: worker-node-2
+    tty: true
+    depends_on:
+      - master-node
+    ports:
+      - "7042:8042" # NodeManager
+    networks: 
+      hadoop-network:
+        ipv4_address: 10.5.0.4
+networks:
+  hadoop-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.5.0.0/16
