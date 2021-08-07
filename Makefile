@@ -10,11 +10,4 @@ build:
 
 submit:
 	@docker build -t app ./application
-	@docker run --network ${DOCKER_NETWORK} --env-file ${PARAMS_FILE_APP} -v /home/vinicius/hadoop-cluster/user_data:/user_data app
-	
-lixo:
-	@docker run --network ${DOCKER_NETWORK} --env-file ${PARAMS_FILE_APP} rvinicius/base-node-hadoop:${VERSION} hdfs dfs -copyFromLocal -f $PATH_DATASET /datasets/
-	# @docker run --network ${DOCKER_NETWORK} --env-file ${PARAMS_FILE_APP} hadoop-wordcount
-	# @docker run --network ${DOCKER_NETWORK} --env-file ${PARAMS_FILE_APP} rvinicius/base-node-hadoop:${VERSION} hdfs dfs -cat /output/*
-	# @docker run --network ${DOCKER_NETWORK} --env-file ${PARAMS_FILE_APP} rvinicius/base-node-hadoop:${VERSION} hdfs dfs -rm -r /output
-	# @docker run --network ${DOCKER_NETWORK} --env-file ${PARAMS_FILE_APP} rvinicius/base-node-hadoop:${VERSION} hdfs dfs -rm -r /input
+	@docker run --network ${DOCKER_NETWORK} --env-file ${PARAMS_FILE_APP} -v /home/vinicius/hadoop-cluster/data:/data app

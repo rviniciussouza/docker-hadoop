@@ -1,3 +1,4 @@
 *.tar.gz
 *.zip
-user_data/*
+data/*
+!data/wordcount/

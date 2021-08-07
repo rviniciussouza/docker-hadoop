@@ -6,7 +6,7 @@ services:
     hostname: master-node
     tty: true
     volumes:
-      - ./user_data:/user_data
+      - ./data:/data
     ports:
       - "8088:8088" # ResourceManager
       - "9870:9870" # NameNode WebUI

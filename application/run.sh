@@ -13,4 +13,4 @@ $HADOOP_HOME/bin/hadoop jar $PATH_TO_JAR $CLASSNAME $INPUT_DFS $OUTPUT_DFS
 # Print
 echo "Copiando arquivos de saída para o sistema de arquivos local"
 $HADOOP_HOME/bin/hdfs dfs -cat /output/*
-$HADOOP_HOME/bin/hdfs dfs -copyToLocal -f /output user_data/ 
+$HADOOP_HOME/bin/hdfs dfs -copyToLocal -f /output data/ 
