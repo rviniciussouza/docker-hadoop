@@ -30,6 +30,8 @@ make submit
 
 ### Acesso as interfaces gráficas
 
+Antes de acessar as páginas é necessário configurar o DNS local para utilizar os domínios master-node e worker-node-*. Essa etapa pode ser ignorada, no entanto os domínios devem ser substituídos pelos ips correspondentes nos links abaixo.
+
 - Job History - http://master-node:19888/jobhistory/ 
 - Resource Manager - http://master-node:8088/
 - Namenode - http://master-node:9870/dfshealth.html
@@ -47,3 +49,5 @@ Os arquivos de configuração do cluster estão na pasta ```base/config/hadoop/`
 - hdfs-site.xml
 - mapred-site.xml
 - yarn-site.xml
+
+
