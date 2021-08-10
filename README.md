@@ -42,12 +42,11 @@ Para facilitar, o script ```open-webapp.sh``` abre todas essas páginas no googl
 
 ## Configuração do cluster
 
-Os arquivos de configuração do cluster estão na pasta ```base/config/hadoop/```
+Os arquivos de configuração do cluster estão na pasta ```base/config/hadoop/```.
 
-- core-site.xml
+- core-site.xml [[core default values](https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/core-default.xml)]
+- hdfs-site.xml [[hdfs default values](https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/hdfs-default.xml)]
+- mapred-site.xml [[mr default values](https://hadoop.apache.org/docs/current/hadoop-mapreduce-client/hadoop-mapreduce-client-core/mapred-default.xml)]
+- yarn-site.xml [[yarn default values](https://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-common/yarn-default.xml)]
 - hadoop-env.sh
-- hdfs-site.xml
-- mapred-site.xml
-- yarn-site.xml
-
 
