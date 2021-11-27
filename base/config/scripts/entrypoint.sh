@@ -8,6 +8,8 @@ if [[ $HOSTNAME = master-node ]]; then
     $HADOOP_HOME/sbin/start-yarn.sh
     $HADOOP_HOME/bin/mapred --daemon start historyserver
     hdfs dfs -mkdir /datasets
+    hdfs dfs -mkdir /consultas
+    hdfs dfs -mkdir /pivots
 else
     $HADOOP_HOME/sbin/hadoop-daemon.sh start datanode &
     $HADOOP_HOME/bin/yarn nodemanager

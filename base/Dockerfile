@@ -9,10 +9,9 @@ ENV PATH $PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin
 RUN apt-get update \
     && apt-get install -y wget nano ssh openssh-server curl iputils-ping
 
-COPY hadoop-3.3.1.tar.gz /
+# COPY hadoop-3.3.1.tar.gz /
 
-# RUN wget \
-#     "http://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz" \
+RUN wget "http://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz"
 
 RUN tar zvxf hadoop-${HADOOP_VERSION}.tar.gz -C /usr/ \
     && rm hadoop-${HADOOP_VERSION}.tar.gz \

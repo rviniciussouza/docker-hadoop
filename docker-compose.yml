@@ -10,7 +10,10 @@ services:
     ports:
       - "8088:8088" # ResourceManager
       - "9870:9870" # NameNode WebUI
+      - "9864:9864" # The secondary namenode http/https server address and port.
       - "8042:8042" # NodeManager
+      - "19888:19888" # JobHistory
+      - "10020:10020" # JobHistory
     networks: 
       hadoop-network:
         ipv4_address: 10.5.0.2
