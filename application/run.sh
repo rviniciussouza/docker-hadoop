@@ -20,8 +20,7 @@ time $HADOOP_HOME/bin/hadoop jar $PATH_TO_JAR $CLASSNAME \
     -D mapper.number.partitions=$NUMBER_PARTITIONS \
     -D mapper.pivots.file=$PATH_PIVOTS_DFS \
     -D brid.threshold=$THRESHOLD \
-    -D brid.K=$K $INPUT_DFS $INTERMEDIARY_DFS $OUTPUT_DFS $PATH_QUERIES 
-
+    -D brid.K=$K $INPUT_DFS $INTERMEDIARY_DFS $OUTPUT_DFS/$EXPERIMENT_ID/ $PATH_QUERIES 
 
 # Print
 if [ $PRINT_RESULT == 1 ]; then    
@@ -29,4 +28,4 @@ if [ $PRINT_RESULT == 1 ]; then
 fi
 
 echo "Copiando arquivos de saída para o sistema de arquivos local"
-$HADOOP_HOME/bin/hdfs dfs -copyToLocal -f /outputs/ data/outputs/
+$HADOOP_HOME/bin/hdfs dfs -copyToLocal -f /outputs/$EXPERIMENT_ID data/outputs/

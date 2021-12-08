@@ -1,4 +1,5 @@
 *.tar.gz
 *.zip
-data/*
+data/outputs
+data/*/gabarito
 !data/wordcount/
