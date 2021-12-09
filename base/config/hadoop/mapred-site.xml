@@ -18,27 +18,33 @@
         <value>HADOOP_MAPRED_HOME=$HADOOP_HOME</value>
     </property>
     <property>
+        <!-- RAM-per-container -->
         <name>mapreduce.map.memory.mb</name>
-        <value>750</value>
+        <value>1024</value>
     </property>
     <property>
+        <!-- RAM-per-container -->
         <name>mapreduce.reduce.memory.mb</name>
-        <value>1500</value>
+        <value>1024</value>
     </property>
     <property>
+        <!-- 0.8 * RAM-per-container -->
         <name>mapreduce.map.java.opts</name>
-        <value>-Xmx600m</value>
+        <value>-Xmx800m</value>
     </property>
     <property>
+        <!-- 0.8 * 2 * RAM-per-container -->
         <name>mapreduce.reduce.java.opts</name>
-        <value>-Xmx1200m</value>
+        <value>-Xmx800m</value>
     </property>
     <property>
+        <!-- 2 * RAM-per-container -->
         <name>yarn.app.mapreduce.am.resource.mb</name>
-        <value>1500</value>
+        <value>2048mb</value>
     </property>
     <property>
+        <!-- 0.8 * 2 * RAM-per-container -->
         <name>yarn.app.mapreduce.am.command-opts</name>
-        <value>-Xmx1200m</value>
+        <value>-Xmx1638m</value>
     </property>
 </configuration>
