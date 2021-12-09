@@ -3,3 +3,4 @@
 data/outputs
 data/*/gabarito
 !data/wordcount/
+Makefile
