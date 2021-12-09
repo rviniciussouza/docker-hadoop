@@ -40,7 +40,7 @@
     <property>
         <!-- 2 * RAM-per-container -->
         <name>yarn.app.mapreduce.am.resource.mb</name>
-        <value>2048mb</value>
+        <value>2048</value>
     </property>
     <property>
         <!-- 0.8 * 2 * RAM-per-container -->
