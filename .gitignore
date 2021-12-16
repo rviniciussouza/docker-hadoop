@@ -1,5 +1,9 @@
 *.tar.gz
 *.zip
-data/outputs
+data/outputs/*
+data/logs/*
+submit-params.env
 data/*/gabarito
 !data/wordcount/
+.vscode
+Makefile
