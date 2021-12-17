@@ -41,7 +41,7 @@ time $HADOOP_HOME/bin/hadoop jar $PATH_TO_JAR $CLASSNAME \
     -D mapper.pivots.file=$PATH_PIVOTS_DFS \
     -D brid.threshold=$THRESHOLD \
     -D experiment.logs.file=$PATH_LOGS_DFS/$EXPERIMENT_ID/ \
-    -D brid.K=$K $INPUT_DFS/$DATASET_NAME $INTERMEDIARY_DFS/$EXPERIMENT_ID/ $OUTPUT_DFS/$EXPERIMENT_ID/ $
+    -D brid.K=$K $INPUT_DFS/$DATASET_NAME $INTERMEDIARY_DFS/$EXPERIMENT_ID/ $OUTPUT_DFS/$EXPERIMENT_ID/ $PATH_QUERIES
 
 echo "Copiando arquivos de saída para o sistema de arquivos local"
 $HADOOP_HOME/bin/hdfs dfs -copyToLocal -f /outputs/$EXPERIMENT_ID data/outputs/
