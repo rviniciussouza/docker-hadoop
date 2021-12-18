@@ -39,7 +39,7 @@ time $HADOOP_HOME/bin/hadoop jar $PATH_TO_JAR $CLASSNAME \
     -D format.records=$HEAD_DATASET \
     -D mapper.number.partitions=$NUMBER_PARTITIONS \
     -D mapper.pivots.file=$PATH_PIVOTS_DFS \
-    -D brid.threshold=$THRESHOLD \
+    -D brid.factor.f=$F \
     -D experiment.logs.file=$PATH_LOGS_DFS/$EXPERIMENT_ID/ \
     -D brid.K=$K $INPUT_DFS/$DATASET_NAME $INTERMEDIARY_DFS/$EXPERIMENT_ID/ $OUTPUT_DFS/$EXPERIMENT_ID/ $PATH_QUERIES
 
