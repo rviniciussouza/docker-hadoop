@@ -2,8 +2,7 @@
 *.zip
 data/outputs/*
 data/logs/*
-submit-params.env
-data/*/gabarito
+data/inputs/*/gabarito
 !data/wordcount/
 .vscode
 Makefile
