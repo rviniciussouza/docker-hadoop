@@ -46,8 +46,11 @@ time $HADOOP_HOME/bin/hadoop jar $PATH_TO_JAR $CLASSNAME \
 echo "Copiando arquivos de saída para o sistema de arquivos local"
 $HADOOP_HOME/bin/hdfs dfs -copyToLocal -f /outputs/$EXPERIMENT_ID data/outputs/
 
-echo "Mesclando e copiando arquivos de logs para sistema de arquivos local"
-$HADOOP_HOME/bin/hdfs dfs -getmerge -nl /logs/$EXPERIMENT_ID/ /data/logs/$EXPERIMENT_ID
+echo "Mesclando e copiando logs de calculo de distância para sistema de arquivos local"
+$HADOOP_HOME/bin/hdfs dfs -getmerge -nl /logs/$EXPERIMENT_ID/DISTANCE_CALCULATIONS /data/logs/$EXPERIMENT_ID/DISTANCE_CALCULATIONS
+
+echo "Mesclando e copiando logs de duplicação de dados para sistema de arquivos local"
+$HADOOP_HOME/bin/hdfs dfs -getmerge -nl /logs/$EXPERIMENT_ID/DUPLICATE_ELEMENTS /data/logs/$EXPERIMENT_ID/DUPLICATE_ELEMENTS
 
 # Limpando o diretório de saída do experimento
 $HADOOP_HOME/bin/hdfs dfs -rm -r $OUTPUT_DFS/$EXPERIMENT_ID/
