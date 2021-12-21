@@ -6,3 +6,4 @@ data/inputs/*/gabarito
 !data/wordcount/
 .vscode
 Makefile
+base/config/hadoop/*

@@ -40,11 +40,11 @@
     <property>
         <!-- 2 * RAM-per-container -->
         <name>yarn.app.mapreduce.am.resource.mb</name>
-        <value>1500</value>
+        <value>3000</value>
     </property>
     <property>
         <!-- 0.8 * 2 * RAM-per-container -->
         <name>yarn.app.mapreduce.am.command-opts</name>
-        <value>-Xmx1500m</value>
+        <value>-Xmx1638m</value>
     </property>
 </configuration>
