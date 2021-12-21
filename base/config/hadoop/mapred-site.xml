@@ -20,12 +20,12 @@
     <property>
         <!-- RAM-per-container -->
         <name>mapreduce.map.memory.mb</name>
-        <value>1024</value>
+        <value>1500</value>
     </property>
     <property>
         <!-- RAM-per-container -->
         <name>mapreduce.reduce.memory.mb</name>
-        <value>1024</value>
+        <value>1500</value>
     </property>
     <property>
         <!-- 0.8 * RAM-per-container -->
@@ -40,11 +40,11 @@
     <property>
         <!-- 2 * RAM-per-container -->
         <name>yarn.app.mapreduce.am.resource.mb</name>
-        <value>2048</value>
+        <value>1500</value>
     </property>
     <property>
         <!-- 0.8 * 2 * RAM-per-container -->
         <name>yarn.app.mapreduce.am.command-opts</name>
-        <value>-Xmx1638m</value>
+        <value>-Xmx1500m</value>
     </property>
 </configuration>
