@@ -20,17 +20,17 @@
         <property>
                 <!-- 4GB per pseudo node  -->
                 <name>yarn.nodemanager.resource.memory-mb</name>
-                <value>10240</value>
+                <value>1500</value>
         </property>
         <property>
                 <!-- 2GB per container -->
                 <name>yarn.scheduler.minimum-allocation-mb</name>
-                <value>1500</value>
+                <value>750</value>
         </property>
         <property>
                 <!-- 3 (containers) * RAM per container -->
                 <name>yarn.scheduler.maximum-allocation-mb</name>
-                <value>10240</value>
+                <value>1500</value>
         </property>
         <property>
                 <name>yarn.nodemanager.vmem-check-enabled</name>
