@@ -30,7 +30,7 @@
     <property>
         <!-- 0.8 * RAM-per-container -->
         <name>mapreduce.map.java.opts</name>
-        <value>-Xmx1800m</value>
+        <value>-Xmx3200m</value>
     </property>
     <property>
         <!-- 0.8 * 2 * RAM-per-container -->
