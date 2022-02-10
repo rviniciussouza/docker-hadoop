@@ -7,3 +7,4 @@ data/inputs/*/gabarito
 .vscode
 Makefile
 base/config/hadoop/*
+data/inputs/mnist/mnist.txt
