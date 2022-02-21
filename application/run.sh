@@ -19,47 +19,49 @@ fi
 echo "Copiando arquivos com os pivos para o HDFS..."
 $HADOOP_HOME/bin/hdfs dfs -put $PATH_PIVOTS /pivots/$DATASET_NAME/
 
-# Formatando o diretório de saída do experimento
-$HADOOP_HOME/bin/hdfs dfs -rm -r $OUTPUT_DFS/$EXPERIMENT_ID/
-# Formatando o diretório com resultados intermediarios do experimento
-$HADOOP_HOME/bin/hdfs dfs -rm -r $INTERMEDIARY_DFS/$EXPERIMENT_ID/
-# Limpando o diretório de logs do experimento
-$HADOOP_HOME/bin/hdfs dfs -rm -r $PATH_LOGS_NUMBER_METRIC_CALLS/$EXPERIMENT_ID
-$HADOOP_HOME/bin/hdfs dfs -rm -r $PATH_LOGS_NUMBER_DUPLICATES/$EXPERIMENT_ID
+for K in $SIZE
+do
+    for F in $FACTOR
+    do
+        # Formatando o diretório de saída do experimento
+        $HADOOP_HOME/bin/hdfs dfs -rm -r $OUTPUT_DFS/$EXPERIMENT_ID/
+        # Formatando o diretório com resultados intermediarios do experimento
+        $HADOOP_HOME/bin/hdfs dfs -rm -r $INTERMEDIARY_DFS/$EXPERIMENT_ID/
+        # Limpando o diretório de logs do experimento
+        $HADOOP_HOME/bin/hdfs dfs -rm -r $PATH_LOGS_NUMBER_METRIC_CALLS/$EXPERIMENT_ID
+        $HADOOP_HOME/bin/hdfs dfs -rm -r $PATH_LOGS_NUMBER_DUPLICATES/$EXPERIMENT_ID
 
+        # Submetendo o MapReduce Job
+        echo "Submetendo o JOB"
+        echo "INFORMAÇÕES DO EXPERIMENTO:"
+        echo "ID: ${EXPERIMENT_ID}"
+        echo "K: ${K}"
+        echo "DATASET: ${PATH_DATASET}"
+        echo "CONSULTAS: ${PATH_QUERIES}"
+        echo "PIVOTS: ${PATH_PIVOTS}"
+        echo "FACTOR: ${F}"
 
-# Submetendo o MapReduce Job
-echo "Submetendo o JOB"
-echo "INFORMAÇÕES DO EXPERIMENTO:"
-echo "K: ${K}"
-echo "DATASET: ${PATH_DATASET}"
-echo "CONSULTAS: ${PATH_QUERIES}"
-echo "PIVOTS: ${PATH_PIVOTS}"
-echo "# PARTICOES: ${NUMBER_PARTITIONS}"
-time $HADOOP_HOME/bin/hadoop jar $PATH_TO_JAR $CLASSNAME \
-    -D format.records=$HEAD_DATASET \
-    -D mapper.number.partitions=$NUMBER_PARTITIONS \
-    -D mapper.pivots.file=$PATH_PIVOTS_DFS \
-    -D brid.factor.f=$F \
-    -D experiment.logs.metric.calls=$PATH_LOGS_NUMBER_METRIC_CALLS/$EXPERIMENT_ID/ \
-    -D experiment.logs.duplicates=$PATH_LOGS_NUMBER_DUPLICATES/$EXPERIMENT_ID/ \
-    -D brid.K=$K $INPUT_DFS/$DATASET_NAME $INTERMEDIARY_DFS/$EXPERIMENT_ID/ $OUTPUT_DFS/$EXPERIMENT_ID/ $PATH_QUERIES $METHOD_PARTITIONING
+        echo "# PARTICOES: ${NUMBER_PARTITIONS}"
+        time $HADOOP_HOME/bin/hadoop jar $PATH_TO_JAR $CLASSNAME \
+            -D format.records=$HEAD_DATASET \
+            -D mapper.number.partitions=$NUMBER_PARTITIONS \
+            -D mapper.pivots.file=$PATH_PIVOTS_DFS \
+            -D brid.factor.f=$F \
+            -D experiment.logs.metric.calls=$PATH_LOGS_NUMBER_METRIC_CALLS/$EXPERIMENT_ID/ \
+            -D experiment.logs.duplicates=$PATH_LOGS_NUMBER_DUPLICATES/$EXPERIMENT_ID/ \
+            -D brid.K=$K $INPUT_DFS/$DATASET_NAME $INTERMEDIARY_DFS/$EXPERIMENT_ID/ $OUTPUT_DFS/$EXPERIMENT_ID/ $PATH_QUERIES $METHOD_PARTITIONING
 
-echo "Copiando arquivos de saída para o sistema de arquivos local"
-$HADOOP_HOME/bin/hdfs dfs -copyToLocal -f /outputs/$EXPERIMENT_ID data/outputs/
+        echo "Copiando arquivos de saída para o sistema de arquivos local"
+        $HADOOP_HOME/bin/hdfs dfs -copyToLocal -f /outputs/$EXPERIMENT_ID data/outputs/
 
-echo "Mesclando e copiando logs de calculo de distância para sistema de arquivos local"
-$HADOOP_HOME/bin/hdfs dfs -getmerge -nl $PATH_LOGS_NUMBER_METRIC_CALLS/$EXPERIMENT_ID /data/logs/metric_calls/$EXPERIMENT_ID
+        echo "Mesclando e copiando logs de calculo de distância para sistema de arquivos local"
+        $HADOOP_HOME/bin/hdfs dfs -getmerge -nl $PATH_LOGS_NUMBER_METRIC_CALLS/$EXPERIMENT_ID /data/logs/metric_calls/$EXPERIMENT_ID
 
-if [ "$METHOD_PARTITIONING" = "PivotBasedOverlapping" ]; then
-    echo "Mesclando e copiando logs de duplicação de dados para sistema de arquivos local"
-    $HADOOP_HOME/bin/hdfs dfs -getmerge -nl $PATH_LOGS_NUMBER_DUPLICATES/$EXPERIMENT_ID /data/logs/duplicates/$EXPERIMENT_ID
-fi
+        if [ "$METHOD_PARTITIONING" = "PivotBasedOverlapping" ]; then
+            echo "Mesclando e copiando logs de duplicação de dados para sistema de arquivos local"
+            $HADOOP_HOME/bin/hdfs dfs -getmerge -nl $PATH_LOGS_NUMBER_DUPLICATES/$EXPERIMENT_ID /data/logs/duplicates/$EXPERIMENT_ID
+        fi
 
-# # Limpando o diretório de saída do experimento
-# $HADOOP_HOME/bin/hdfs dfs -rm -r $OUTPUT_DFS/$EXPERIMENT_ID/
-# # Limpando o diretório com resultados intermediarios do experimento
-# $HADOOP_HOME/bin/hdfs dfs -rm -r $INTERMEDIARY_DFS/$EXPERIMENT_ID/
-# # Limpando o diretório de logs do experimento
-# $HADOOP_HOME/bin/hdfs dfs -rm -r $PATH_LOGS_NUMBER_METRIC_CALLS/$EXPERIMENT_ID
-# $HADOOP_HOME/bin/hdfs dfs -rm -r $PATH_LOGS_NUMBER_DUPLICATES/$EXPERIMENT_ID
+        ((EXPERIMENT_ID++))
+    done
+done
