@@ -2,8 +2,8 @@
 
 O objetivo deste repositório é a configuração de um cluster pseudo-distribuído utilizando o [Apache Hadoop](https://hadoop.apache.org/) para simulação e testes de algoritmos utilizando o framework MapReduce. A versão do Hadoop utilizada é a 3.3.1, no entanto isso pode ser configurado no arquivo ```base/Dockerfile```.
 
-A arquitetura inicial do cluster possui um nó master e dois nós escravos (datanodes). Se novos nós escravos forem adicionados, eles devem ser registrados no arquivo de configuração ```master/config/hadoop/slaves```.
-## Deploy do cluster
+A arquitetura inicial do cluster possui um nó master e dois worker nodes. Se novos nós escravos forem adicionados, eles devem ser registrados no arquivo de configuração ```master/config/hadoop/slaves```.
+## Build e Execução
 
 ```
 make build
