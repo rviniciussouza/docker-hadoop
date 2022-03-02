@@ -7,6 +7,7 @@ if [[ $HOSTNAME = master-node ]]; then
     $HADOOP_HOME/sbin/start-dfs.sh
     $HADOOP_HOME/sbin/start-yarn.sh
     $HADOOP_HOME/bin/mapred --daemon start historyserver
+    hdfs dfsadmin -safemode leave
     hdfs dfs -mkdir /datasets
     hdfs dfs -mkdir /consultas
     hdfs dfs -mkdir /pivots
