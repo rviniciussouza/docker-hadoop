@@ -13,16 +13,17 @@ if ! $HADOOP_HOME/bin/hdfs dfs -test -e /consultas/$DATASET_NAME/; then
 fi
 $HADOOP_HOME/bin/hdfs dfs -put $PATH_QUERIES /consultas/$DATASET_NAME/
 
-if ! $HADOOP_HOME/bin/hdfs dfs -test -e /pivots/$DATASET_NAME/; then
-    $HADOOP_HOME/bin/hdfs dfs -mkdir /pivots/$DATASET_NAME
-fi
-echo "Copiando arquivos com os pivos para o HDFS..."
-$HADOOP_HOME/bin/hdfs dfs -put $PATH_PIVOTS /pivots/$DATASET_NAME/
-
+IDX_PATH_PIVOT=2
 for K in $SIZE
 do
-    for F in $FACTOR
+    for PARTITIONS in $NUMBER_PARTITIONS
     do
+        if ! $HADOOP_HOME/bin/hdfs dfs -test -e /pivots/$DATASET_NAME/; then
+            $HADOOP_HOME/bin/hdfs dfs -mkdir /pivots/$DATASET_NAME
+        fi
+        echo "Copiando arquivos com os pivos para o HDFS..."
+        $HADOOP_HOME/bin/hdfs dfs -put $PATH_PIVOTS/$IDX_PATH_PIVOT /pivots/$DATASET_NAME/
+
         # Formatando o diretório de saída do experimento
         $HADOOP_HOME/bin/hdfs dfs -rm -r $OUTPUT_DFS/$EXPERIMENT_ID/
         # Formatando o diretório com resultados intermediarios do experimento
@@ -38,15 +39,15 @@ do
         echo "K: ${K}"
         echo "DATASET: ${PATH_DATASET}"
         echo "CONSULTAS: ${PATH_QUERIES}"
-        echo "PIVOTS: ${PATH_PIVOTS}"
-        echo "FACTOR: ${F}"
+        echo "PIVOTS: ${PATH_PIVOTS}/${IDX_PATH_PIVOT}"
+        echo "FACTOR: ${FACTOR}"
 
-        echo "# PARTICOES: ${NUMBER_PARTITIONS}"
+        echo "# PARTICOES: ${PARTITIONS}"
         time $HADOOP_HOME/bin/hadoop jar $PATH_TO_JAR $CLASSNAME \
             -D format.records=$HEAD_DATASET \
-            -D mapper.number.partitions=$NUMBER_PARTITIONS \
-            -D mapper.pivots.file=$PATH_PIVOTS_DFS \
-            -D brid.factor.f=$F \
+            -D mapper.number.partitions=$PARTITIONS \
+            -D mapper.pivots.file=$PATH_PIVOTS_DFS/$IDX_PATH_PIVOT \
+            -D brid.factor.f=$FACTOR \
             -D experiment.logs.metric.calls=$PATH_LOGS_NUMBER_METRIC_CALLS/$EXPERIMENT_ID/ \
             -D experiment.logs.duplicates=$PATH_LOGS_NUMBER_DUPLICATES/$EXPERIMENT_ID/ \
             -D brid.K=$K $INPUT_DFS/$DATASET_NAME $INTERMEDIARY_DFS/$EXPERIMENT_ID/ $OUTPUT_DFS/$EXPERIMENT_ID/ $PATH_QUERIES $METHOD_PARTITIONING
@@ -62,6 +63,7 @@ do
             $HADOOP_HOME/bin/hdfs dfs -getmerge -nl $PATH_LOGS_NUMBER_DUPLICATES/$EXPERIMENT_ID /data/logs/duplicates/$EXPERIMENT_ID
         fi
 
+        ((IDX_PATH_PIVOT++))
         ((EXPERIMENT_ID++))
     done
 done
