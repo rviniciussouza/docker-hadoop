@@ -1,16 +1,17 @@
-# Cluster Hadoop v.3.*
+# Cluster Hadoop 3.3.1
 
-O objetivo deste repositório é a configuração de um cluster pseudo-distribuído utilizando o [Apache Hadoop](https://hadoop.apache.org/) para simulação e testes de algoritmos utilizando o framework MapReduce. A versão do Hadoop utilizada é a 3.3.1, no entanto isso pode ser configurado no arquivo ```base/Dockerfile```.
+O objetivo deste repositório é a configuração de um cluster pseudo-distribuído utilizando o [Apache Hadoop](https://hadoop.apache.org/) para simulação e testes de algoritmos utilizando o framework MapReduce.
 
-A arquitetura inicial do cluster possui um nó master e dois worker nodes. Se novos nós escravos forem adicionados, eles devem ser registrados no arquivo de configuração ```master/config/hadoop/slaves```.
-## Build e Execução
+A arquitetura inicial do cluster possui um nó master e dois worker nodes. Se novos worker nodes forem adicionados, eles devem ser registrados no arquivo de configuração ```master/config/hadoop/slaves```.
+
+## Build and Run
 
 ```
 make build
 docker-compose up
 ```
 
-## Execução de um job
+## Parâmetros de execução de um job
 
 Os parâmetros para execução do job devem ser especificados no arquivo ```submit-params.env```.
 
@@ -22,7 +23,7 @@ CLASSNAME - nome da classe principal
 PATH_DATASET - caminho para o diretório ou arquivo de entrada na máquina host
 ```
 
-Submissão:
+### Submissão do job
 
 ```
 make submit
@@ -37,8 +38,6 @@ Antes de acessar as páginas é necessário configurar o DNS local para utilizar
 - Namenode - http://master-node:9870/dfshealth.html
 - NodeManager - http://master-node:8042/node
 - DataNode - http://master-node:9864/datanode.html
-
-Para facilitar, o script ```open-webapp.sh``` abre todas essas páginas no google chrome.
 
 ## Configuração do cluster
 
